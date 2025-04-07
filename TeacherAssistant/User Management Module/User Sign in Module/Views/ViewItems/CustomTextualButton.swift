@@ -10,21 +10,21 @@ import SwiftUI
 struct CustomTextualButton: View {
     
     var onButtonTap: () -> Void
+    let title: String
     
     var body: some View {
         VStack {
             Button {
                 onButtonTap()
             } label: {
-                Text("Forgot Password?")
+                Text(title)
                     .font(.subheadline)
                     .bold()
-                    .foregroundStyle(.dustyBlue)
             }
         }
     }
 }
 
 #Preview {
-    CustomTextualButton(onButtonTap: {})
+    CustomTextualButton(onButtonTap: {}, title: "Forgot Password?")
 }

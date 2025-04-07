@@ -8,11 +8,37 @@
 import SwiftUI
 
 struct CustomSecureField: View {
+    
+    let prompt: String
+    @Binding var text: String
+    @ObservedObject var validator: PasswordValidator
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading){
+            SecureField(
+                "",
+                text: $text,
+                prompt: Text(prompt)
+                    .foregroundStyle(.dustyBlue)
+            )
+            .textInputAutocapitalization(.never)
+            .foregroundStyle(.dustyBlue)
+            .padding()
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(.dustyBlue ,lineWidth: 1)
+                .frame(width: UIScreen.main.bounds.width * 0.85 ,height: 50)
+        )
+        .padding()
+        Text(validator.passwordStrength)
+            .foregroundStyle(validator.passwordColor)
+            .font(.caption)
+            .padding(.top, 4)
     }
+    
 }
 
 #Preview {
-    CustomSecureField()
+    CustomSecureField(prompt: "password", text: .constant(""), validator: PasswordValidator())
 }

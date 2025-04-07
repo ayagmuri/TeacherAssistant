@@ -1,9 +1,3 @@
-//
-//  PasswordHandler.swift
-//  MyIELTSScore
-//
-//  Created by Amin Yaghmouri on 2025-03-03.
-//
 
 import SwiftUI
 import Combine

@@ -21,12 +21,13 @@ struct CustomTextField: View {
             .foregroundStyle(.dustyBlue)
             .padding()
         }
-        .padding()
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(.dustyBlue ,lineWidth: 1)
-                .frame(width: UIScreen.main.bounds.width * 0.9, height: 50)
+                .frame(width: UIScreen.main.bounds.width * 0.85 ,height: 50)
+            
         )
+        .padding()
     }
 }
 
