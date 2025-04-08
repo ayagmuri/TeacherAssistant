@@ -11,9 +11,11 @@ struct EmailSignInSection: View {
     
     @Binding var email: String
     @Binding var password: String
-    @FocusState var focus: FormFieldFocus?
-    @ObservedObject var passwordValidator: PasswordValidator
     
+    @FocusState.Binding var focus: FormFieldFocus?
+    enum FormFieldFocus: Hashable {
+        case email, password
+    }
     var forgotPassword: () -> Void
     
     var body: some View {
@@ -24,7 +26,7 @@ struct EmailSignInSection: View {
                 .onSubmit {
                     focus = .password
                 }
-            CustomSecureField(prompt: "Password", text: $password, validator: passwordValidator)
+            CustomSecureField(prompt: "Password", text: $password)
                 .focused($focus, equals: .password)
                 .padding(.bottom)
             HStack {
@@ -41,12 +43,27 @@ struct EmailSignInSection: View {
         }
     }
     
-    enum FormFieldFocus: Hashable {
-        case email, password
-    }
+   
     
 }
 
 #Preview {
-    EmailSignInSection(email: .constant(""), password: .constant(""), passwordValidator: PasswordValidator(), forgotPassword: {})
+    struct PreviewWrapper: View {
+        @State private var email = ""
+        @State private var password = ""
+        @FocusState private var focus: EmailSignInSection.FormFieldFocus?
+       
+
+        var body: some View {
+            EmailSignInSection(
+                email: $email,
+                password: $password,
+                
+                focus: $focus,
+                forgotPassword: {
+                }
+            )
+        }
+    }
+    return PreviewWrapper()
 }

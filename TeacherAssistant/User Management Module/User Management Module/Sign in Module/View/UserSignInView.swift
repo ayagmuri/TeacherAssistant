@@ -11,12 +11,17 @@ struct UserSignInView: View {
     
     @State var email: String = ""
     @State var password: String = ""
-    @StateObject var passwordValidator: PasswordValidator = PasswordValidator()
+    @FocusState var focus: EmailSignInSection.FormFieldFocus?
     
+    @Environment(\.colorScheme) var colorScheme  // Detect dark or light mode
+    
+    var theme: AppColorScheme {
+        colorScheme == .dark ? .dark : .light
+    }
     
     var body: some View {
         ZStack {
-            Color.ivoryCloud.edgesIgnoringSafeArea(.all)
+            theme.backgroundColor.edgesIgnoringSafeArea(.all)
             
             VStack {
                 CustomHeader(
@@ -28,8 +33,9 @@ struct UserSignInView: View {
                 EmailSignInSection(
                     email: $email,
                     password: $password,
-                    passwordValidator: passwordValidator,
-                    forgotPassword: {}
+                    focus: $focus,
+                    forgotPassword: {
+                    }
                 )
                 
                 CustomButton(
@@ -44,7 +50,7 @@ struct UserSignInView: View {
                 Spacer()
                 HStack {
                     Text("Don't have an account?")
-                        .foregroundStyle(.dustyBlue)
+                        .foregroundStyle(theme.primaryText)
                     CustomTextualButton(onButtonTap: {}, title: "Sign up")
                 }
                 .padding()

@@ -14,8 +14,12 @@ struct SignUpFieldsSection: View {
     @Binding var email: String
     @Binding var password: String
     @Binding var phoneNumber: String
-    @FocusState var focus: FormFieldFocus?
+    @FocusState.Binding var focus: FormFieldFocus?
+    @ObservedObject var validator: PasswordValidator
     
+    enum FormFieldFocus: Hashable {
+        case firstName, lastName, phoneNumber, email, password
+    }
     
     var body: some View {
         VStack (spacing: -25) {
@@ -42,8 +46,24 @@ struct SignUpFieldsSection: View {
                 .onSubmit {
                     focus = .password
                 }
-            CustomTextField(prompt: "Password", text: $password)
+            CustomSecureField(prompt: "Password", text: $password)
                 .focused($focus, equals: .password)
+            
+            
+            VStack {
+                
+                HStack (alignment: .firstTextBaseline) {
+                    Text(validator.passwordStrength)
+                        .multilineTextAlignment(.leading)
+                        .bold()
+                        .foregroundStyle(validator.passwordColor)  // Color based on password strength
+                        .font(.caption)
+                        .padding(.top, 4)
+                    Spacer()
+                }
+                .padding()
+            }
+            
         }
         .onAppear(perform: {
             focus = .firstName
@@ -51,15 +71,28 @@ struct SignUpFieldsSection: View {
         .padding()
     }
     
-    enum FormFieldFocus: Hashable {
-        case firstName
-        case lastName
-        case email
-        case password
-        case phoneNumber
-    }
 }
 
 #Preview {
-    SignUpFieldsSection(firstName: .constant(""), lastName: .constant(""), email: .constant(""), password: .constant(""), phoneNumber: .constant(""))
+    struct PreviewWrapper: View {
+        @State private var firstName = ""
+        @State private var lastName = ""
+        @State private var email = ""
+        @State private var password = ""
+        @State private var phoneNumber = ""
+        @FocusState private var focus: SignUpFieldsSection.FormFieldFocus?
+        @StateObject private var validator = PasswordValidator()
+        
+        var body: some View {
+            SignUpFieldsSection(
+                firstName: $firstName,
+                lastName: $lastName,
+                email: $email,
+                password: $password,
+                phoneNumber: $phoneNumber,
+                focus: $focus, validator: validator
+            )
+        }
+    }
+    return PreviewWrapper()
 }

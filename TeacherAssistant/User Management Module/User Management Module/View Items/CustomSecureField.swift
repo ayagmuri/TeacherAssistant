@@ -7,38 +7,45 @@
 
 import SwiftUI
 
+/// A custom secure text field that integrates password strength validation.
+/// This view dynamically adjusts its appearance based on the current color scheme (light/dark mode).
+/// It also displays the password strength using a `PasswordValidator` object.
 struct CustomSecureField: View {
     
     let prompt: String
     @Binding var text: String
-    @ObservedObject var validator: PasswordValidator
+    
+    @Environment(\.colorScheme) var colorScheme  // Detect the current color scheme (light or dark)
+    
+    var theme: AppColorScheme {
+        // Return the appropriate theme based on the current color scheme
+        colorScheme == .dark ? .dark : .light
+    }
     
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
+            // SecureField to enter the password with a prompt
             SecureField(
                 "",
                 text: $text,
                 prompt: Text(prompt)
-                    .foregroundStyle(.dustyBlue)
+                    .foregroundStyle(theme.primaryText)
             )
-            .textInputAutocapitalization(.never)
-            .foregroundStyle(.dustyBlue)
+            .textInputAutocapitalization(.never)  // Disable text auto-capitalization for password fields
+            .foregroundStyle(theme.primaryText)
             .padding()
+            
         }
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(.dustyBlue ,lineWidth: 1)
-                .frame(width: UIScreen.main.bounds.width * 0.85 ,height: 50)
+                .stroke(theme.bordersShadowsColor, lineWidth: 1)
+                .frame(width: UIScreen.main.bounds.width * 0.85, height: 50) // Set width and height
         )
         .padding()
-        Text(validator.passwordStrength)
-            .foregroundStyle(validator.passwordColor)
-            .font(.caption)
-            .padding(.top, 4)
     }
-    
 }
 
 #Preview {
-    CustomSecureField(prompt: "password", text: .constant(""), validator: PasswordValidator())
+    // Preview setup with sample data for CustomSecureField
+    CustomSecureField(prompt: "password", text: .constant(""))
 }

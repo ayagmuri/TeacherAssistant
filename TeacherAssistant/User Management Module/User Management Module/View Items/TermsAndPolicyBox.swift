@@ -5,19 +5,17 @@
 //  Created by Amin Yaghmouri on 2025-04-08.
 //
 
-
-//
-//  TermsAndPolicyBox.swift
-//  MyIELTSScore
-//
-//  Created by Amin Yaghmouri on 2025-03-28.
-//
-
 import SwiftUI
 
+/// A view component that displays terms of use and privacy policy links with a text statement.
+/// It provides two buttons for the user to tap: one for "Terms of Use" and one for "Privacy Policy".
+/// Both actions are handled by the provided closure callbacks.
 struct TermsAndPolicyBox: View {
     
+    // Closure for handling the Terms of Use button tap
     var onTermsButtonTap: () -> Void
+    
+    // Closure for handling the Privacy Policy button tap
     var onPrivacyButtonTap: () -> Void
     
     
@@ -27,10 +25,10 @@ struct TermsAndPolicyBox: View {
                 .font(.footnote)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
-
             HStack(spacing: 12) {
+                // Terms of Use button
                 Button(action: {
-                    onTermsButtonTap()
+                    onTermsButtonTap()  // Call the closure when the button is tapped
                 }) {
                     Text("Terms of Use")
                         .font(.footnote)
@@ -43,8 +41,9 @@ struct TermsAndPolicyBox: View {
                     .font(.footnote)
                     .foregroundColor(.gray)
 
+                // Privacy Policy button
                 Button(action: {
-                    onPrivacyButtonTap()
+                    onPrivacyButtonTap()  // Call the closure when the button is tapped
                 }) {
                     Text("Privacy Policy")
                         .font(.footnote)
@@ -55,8 +54,6 @@ struct TermsAndPolicyBox: View {
             }
         }
         .padding()
-//        .frame(width: UIScreen.main.bounds.width * 0.8)
-//        .background(Color(.systemGray6)) // Subtle background
         .cornerRadius(10)
     }
 }

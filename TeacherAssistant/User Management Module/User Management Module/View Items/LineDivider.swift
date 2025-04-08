@@ -12,6 +12,12 @@ struct LineDivider: View {
     
     let dividerText: String
     
+    @Environment(\.colorScheme) var colorScheme  // Detect dark or light mode
+    
+    var theme: AppColorScheme {
+        colorScheme == .dark ? .dark : .light
+    }
+    
     var body: some View {
         HStack {
             Rectangle()
@@ -25,6 +31,7 @@ struct LineDivider: View {
                 .foregroundStyle(.gray.opacity(0.5))
         }
         .padding(.vertical)
+        .foregroundStyle(theme.bordersShadowsColor)
     }
 }
 
