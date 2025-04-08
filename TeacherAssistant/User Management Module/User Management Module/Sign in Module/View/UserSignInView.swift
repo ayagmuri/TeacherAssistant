@@ -16,7 +16,7 @@ struct UserSignInView: View {
     
     var body: some View {
         ZStack {
-            Color.ivoryClOud.edgesIgnoringSafeArea(.all)
+            Color.ivoryCloud.edgesIgnoringSafeArea(.all)
             
             VStack {
                 CustomHeader(
