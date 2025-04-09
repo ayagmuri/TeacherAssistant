@@ -1,5 +1,13 @@
 //
 //  UserSignInErrors.swift
+//  TeacherAssistant
+//
+//  Created by Amin Yaghmouri on 2025-04-09.
+//
+
+
+//
+//  UserSignInErrors.swift
 //  MyIELTSScore
 //
 //  Created by Amin Yaghmouri on 2025-03-31.
@@ -9,7 +17,6 @@ import Foundation
 
 enum UserSignInErrors: Error {
     
-
     case invalidEmail
     case emailNotFound
     case emailIsEmpty

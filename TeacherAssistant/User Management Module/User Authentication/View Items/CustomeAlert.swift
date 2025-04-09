@@ -15,22 +15,31 @@ struct CustomeAlert: ViewModifier {
     var alertType: AlertType
     
     enum AlertType : String{
-        case success = "Success 🎉"
-        case error = "Error"
+        case success
+        case error
         
         var buttonTitle : String {
             switch self {
             case .success:
-                return "Let's Start"
+                return "Get Started!"
             case .error:
                 return "OK"
+            }
+        }
+        
+        var title: String {
+            switch self {
+            case .success:
+                return "Success 🎉"
+            case .error:
+                return "Error"
             }
         }
     }
     
     func body(content: Content) -> some View {
         content.alert(
-            alertType.rawValue,
+            alertType.title,
             isPresented: $showAlert) {
                 Button(alertType.buttonTitle, role: .cancel) {
                     action()

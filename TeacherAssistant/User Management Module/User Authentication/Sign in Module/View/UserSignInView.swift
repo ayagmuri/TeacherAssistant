@@ -70,22 +70,33 @@ struct UserSignInView: View {
                 }
                 .padding(.top, 40)
             }
+
             .popover(isPresented: $authUiStates.showSignUpView) {
                 UserSignUpView()
             }
+          
+            // Alert
+            .customAlert(message: authUiStates.alertMessage, showAlert: $authUiStates.showAlert, alertType: .error) {
+               
+            }
         }
+       
         
     }
     
     private func handleSignIn() {
         Task {
             do {
-                let success = try await signInVM.signIn()
+                let success = try await signInVM.signInWithEmail()
                 if success {
-                    
+                    authUiStates.showSignInView = false
                 }
+            } catch let error as UserSignInErrors {
+                authUiStates.alertMessage = error.localizedDescription
+                authUiStates.showAlert = true
             } catch {
-                
+                authUiStates.alertMessage = "Something went wrong. Please try again later."
+                authUiStates.showAlert = true
             }
         }
     }

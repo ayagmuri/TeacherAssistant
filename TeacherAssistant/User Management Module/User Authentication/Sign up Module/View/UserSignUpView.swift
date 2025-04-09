@@ -44,8 +44,6 @@ struct UserSignUpView: View {
                     
                     TermsAndPolicyBox(onTermsButtonTap: {}, onPrivacyButtonTap: {})
                 }
-                
-                
             }
             // Error Alert
             .customAlert(
@@ -56,7 +54,8 @@ struct UserSignUpView: View {
                     signUpVM.clearFields()
                 }
             )
-            // Sucess Alert 
+            
+            // Sucess Alert
             .customAlert(
                 message: authUiStates.successAlertMessage,
                 showAlert: $authUiStates.showSuccessAlert,
@@ -65,8 +64,6 @@ struct UserSignUpView: View {
                     authUiStates.showSignInView = true
                 }
             )
-            
-
         }
         .onChange(of: signUpVM.password) { oldValue, newValue in
             validator.checkPassword(signUpVM.password)
@@ -76,9 +73,9 @@ struct UserSignUpView: View {
     private func handleSignUp() {
         Task {
             do {
-                authUiStates.alertMessage = UserSignUpErrors.accountCreatedSuccessfully.localizedDescription
+                authUiStates.successAlertMessage = UserSignUpErrors.accountCreatedSuccessfully.localizedDescription
               
-                authUiStates.showAlert = try await signUpVM.signUp()
+                authUiStates.showSuccessAlert = try await signUpVM.signUp()
                
             } catch let error as UserSignUpErrors {
                 authUiStates.alertMessage = error.localizedDescription
