@@ -87,3 +87,18 @@ final class Authentication {
         try Auth.auth().signOut()
     }
 }
+
+// Mark: - SIGN IN WITH GOOGLE
+extension Authentication {
+    
+    @discardableResult
+    func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+        let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
+        return try await signIn(credential: credential)
+    }
+    
+    private func signIn(credential: AuthCredential ) async throws -> AuthDataResultModel {
+        let authDataResult = try await Auth.auth().signIn(with: credential)
+        return AuthDataResultModel(user: authDataResult.user)
+    }
+}

@@ -8,15 +8,16 @@
 import Foundation
 import AuthenticationServices
 import FirebaseAuth
+import GoogleSignIn
+import GoogleSignInSwift
 
 
 protocol UserSignInViewModelProtocol {
     var email: String { get set }
     var password: String { get set }
-    
     var emailValidator: EmailValidator { get }
-    
     func signInWithEmail() async throws -> Bool
+    func signInWithGoogle() async throws -> Bool
     
 }
 
@@ -28,9 +29,6 @@ class UserSignInViewModel: UserSignInViewModelProtocol, ObservableObject {
     
     /// Validator instance for checking email format validity.
     internal var emailValidator: EmailValidator = EmailValidator()
-    
-    
-    
     
     /// Signs in an existing user using Firebase Authentication.
     ///
@@ -59,9 +57,16 @@ class UserSignInViewModel: UserSignInViewModelProtocol, ObservableObject {
         }
     }
     
+    func signInWithGoogle() async throws -> Bool {
+        let helper = GoogleSignInHelper()
+        let tokens = try await helper.signInWithGoogle()
+        _ = try await Authentication.shared.signInWithGoogle(tokens: tokens)
+//        let authDataResult = try await Authentication.shared.signInWithGoogle(tokens: tokens)
+        return true
+    }
+    
     func clearFields() {
         email = ""
         password = ""
     }
-    
 }

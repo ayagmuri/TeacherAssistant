@@ -10,15 +10,30 @@
 		8A9C16472DA5B7FC003EECEF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8A9C16462DA5B7FC003EECEF /* FirebaseAnalytics */; };
 		8A9C16492DA5B7FC003EECEF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A9C16482DA5B7FC003EECEF /* FirebaseAuth */; };
 		8A9C164B2DA5B7FC003EECEF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8A9C164A2DA5B7FC003EECEF /* FirebaseFirestore */; };
+		8A9C1C032DA71899003EECEF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 8A9C1C022DA71899003EECEF /* GoogleSignIn */; };
+		8A9C1C052DA71899003EECEF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8A9C1C042DA71899003EECEF /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8A9C11462DA4799C003EECEF /* TeacherAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeacherAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8A9C1C152DA723AF003EECEF /* Exceptions for "TeacherAssistant" folder in "TeacherAssistant" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8A9C11452DA4799C003EECEF /* TeacherAssistant */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8A9C11482DA4799C003EECEF /* TeacherAssistant */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8A9C1C152DA723AF003EECEF /* Exceptions for "TeacherAssistant" folder in "TeacherAssistant" target */,
+			);
 			path = TeacherAssistant;
 			sourceTree = "<group>";
 		};
@@ -29,7 +44,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A9C1C052DA71899003EECEF /* GoogleSignInSwift in Frameworks */,
 				8A9C16472DA5B7FC003EECEF /* FirebaseAnalytics in Frameworks */,
+				8A9C1C032DA71899003EECEF /* GoogleSignIn in Frameworks */,
 				8A9C16492DA5B7FC003EECEF /* FirebaseAuth in Frameworks */,
 				8A9C164B2DA5B7FC003EECEF /* FirebaseFirestore in Frameworks */,
 			);
@@ -77,6 +94,8 @@
 				8A9C16462DA5B7FC003EECEF /* FirebaseAnalytics */,
 				8A9C16482DA5B7FC003EECEF /* FirebaseAuth */,
 				8A9C164A2DA5B7FC003EECEF /* FirebaseFirestore */,
+				8A9C1C022DA71899003EECEF /* GoogleSignIn */,
+				8A9C1C042DA71899003EECEF /* GoogleSignInSwift */,
 			);
 			productName = TeacherAssistant;
 			productReference = 8A9C11462DA4799C003EECEF /* TeacherAssistant.app */;
@@ -108,6 +127,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				8A9C16452DA5B7FC003EECEF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8A9C1C012DA71899003EECEF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8A9C11472DA4799C003EECEF /* Products */;
@@ -270,6 +290,7 @@
 				DEVELOPMENT_TEAM = YZWXA28PLB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TeacherAssistant/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +320,7 @@
 				DEVELOPMENT_TEAM = YZWXA28PLB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TeacherAssistant/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -349,6 +371,14 @@
 				minimumVersion = 11.11.0;
 			};
 		};
+		8A9C1C012DA71899003EECEF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -366,6 +396,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8A9C16452DA5B7FC003EECEF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		8A9C1C022DA71899003EECEF /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A9C1C012DA71899003EECEF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		8A9C1C042DA71899003EECEF /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A9C1C012DA71899003EECEF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

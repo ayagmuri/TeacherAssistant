@@ -7,6 +7,8 @@
 
 import SwiftUI
 import AuthenticationServices
+import GoogleSignIn
+import GoogleSignInSwift
 
 struct UserSignInView: View {
     @FocusState var focus: EmailSignInSection.FormFieldFocus?
@@ -43,7 +45,7 @@ struct UserSignInView: View {
                     
                     CustomButton(
                         onButtonTapped: {
-                            handleSignIn()
+                            signInWithEmail()
                         },
                         buttonTitle: "Sign in"
                     )
@@ -52,6 +54,7 @@ struct UserSignInView: View {
                     
                     ThirdPartyLoginViewItem(image: "Google", title: "Google", onButtonTapped: {
                         // Add sign in with Google here
+                        signInWithGoogle()
                     })
                     ThirdPartyLoginViewItem(image: "Apple", title: "Apple", onButtonTapped: {
                         // add sign in with apple here
@@ -84,7 +87,8 @@ struct UserSignInView: View {
         
     }
     
-    private func handleSignIn() {
+    // Function to sign in with email and password`
+    private func signInWithEmail() {
         Task {
             do {
                 let success = try await signInVM.signInWithEmail()
@@ -96,6 +100,25 @@ struct UserSignInView: View {
                 authUiStates.showAlert = true
             } catch {
                 authUiStates.alertMessage = "Something went wrong. Please try again later."
+                authUiStates.showAlert = true
+            }
+        }
+    }
+    
+    
+    // Function to sign in using Google authentication
+    private func signInWithGoogle() {
+        Task {
+            do {
+                let success = try await signInVM.signInWithGoogle()
+                if success {
+                    authUiStates.showSignInView = false
+                }
+            } catch let error as GoogleSignInErrors {
+                authUiStates.alertMessage = error.localizedDescription
+                authUiStates.showAlert = true
+            } catch {
+                authUiStates.alertMessage = GoogleSignInErrors.unexpectedError.localizedDescription
                 authUiStates.showAlert = true
             }
         }

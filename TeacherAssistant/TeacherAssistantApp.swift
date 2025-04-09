@@ -18,7 +18,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
-
 @main
 struct TeacherAssistantApp: App {
     
