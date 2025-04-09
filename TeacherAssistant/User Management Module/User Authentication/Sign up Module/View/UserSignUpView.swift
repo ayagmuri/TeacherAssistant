@@ -20,7 +20,7 @@ struct UserSignUpView: View {
         colorScheme == .dark ? .dark : .light
     }
     
-    @State var showSignInView: Bool
+    @EnvironmentObject var authUiStates: UserAuthUiStates
     
     var body: some View {
         NavigationStack {
@@ -44,7 +44,29 @@ struct UserSignUpView: View {
                     
                     TermsAndPolicyBox(onTermsButtonTap: {}, onPrivacyButtonTap: {})
                 }
+                
+                
             }
+            // Error Alert
+            .customAlert(
+                message: authUiStates.alertMessage,
+                showAlert: $authUiStates.showAlert,
+                alertType: .error,
+                action: {
+                    signUpVM.clearFields()
+                }
+            )
+            // Sucess Alert 
+            .customAlert(
+                message: authUiStates.successAlertMessage,
+                showAlert: $authUiStates.showSuccessAlert,
+                alertType: .success,
+                action: {
+                    authUiStates.showSignInView = true
+                }
+            )
+            
+
         }
         .onChange(of: signUpVM.password) { oldValue, newValue in
             validator.checkPassword(signUpVM.password)
@@ -54,16 +76,24 @@ struct UserSignUpView: View {
     private func handleSignUp() {
         Task {
             do {
-                showSignInView = try await signUpVM.signUp()
+                authUiStates.alertMessage = UserSignUpErrors.accountCreatedSuccessfully.localizedDescription
+              
+                authUiStates.showAlert = try await signUpVM.signUp()
+               
+            } catch let error as UserSignUpErrors {
+                authUiStates.alertMessage = error.localizedDescription
+                authUiStates.showAlert = true
             } catch {
-                print("Error happened")
+                authUiStates.alertMessage = UserSignUpErrors.unexpectedError.localizedDescription
+                authUiStates.showAlert = true
             }
         }
     }
 }
 
 #Preview {
-    UserSignUpView(showSignInView: false)
+    UserSignUpView()
         .environmentObject(UserSignUpViewModel())
+        .environmentObject(UserAuthUiStates())
         
 }

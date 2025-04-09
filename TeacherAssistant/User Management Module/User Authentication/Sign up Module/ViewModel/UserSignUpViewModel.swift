@@ -22,6 +22,8 @@ protocol UserSignUpViewModelProtocol {
     var emailValidator: EmailValidator { get }
     
     func signUp() async throws -> Bool
+    
+    func clearFields()
 }
 
 class UserSignUpViewModel: UserSignUpViewModelProtocol, ObservableObject {
@@ -55,6 +57,7 @@ class UserSignUpViewModel: UserSignUpViewModelProtocol, ObservableObject {
         }
         do {
             try await Authentication.shared.createNewUser(email: email, password: password)
+            clearFields()
             return true
         } catch {
             if (error as NSError).code == AuthErrorCode.emailAlreadyInUse.rawValue {
@@ -66,6 +69,12 @@ class UserSignUpViewModel: UserSignUpViewModelProtocol, ObservableObject {
     }
     
     
-    
+    func clearFields() {
+        email = ""
+        password = ""
+        firstName = ""
+        lastName = ""
+        phoneNumber = ""
+    }
     
 }

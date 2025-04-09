@@ -12,13 +12,12 @@ struct RootView: View {
     @EnvironmentObject var userAuthVM: UserAuthenticationViewModel
     @EnvironmentObject var signInVM: UserSignInViewModel
     @EnvironmentObject var signUpVM: UserSignUpViewModel
-    
-    @State var showSignInView: Bool = false
+    @EnvironmentObject var authUiStates: UserAuthUiStates
     
     var body: some View {
         ZStack {
             NavigationView {
-                Menu()
+                TabBarMenu()
             }
         }
         .onAppear {
@@ -27,13 +26,13 @@ struct RootView: View {
             }
         }
         .fullScreenCover(
-            isPresented: $showSignInView) {
-                UserSignInView(showSignInView: $showSignInView)
+            isPresented: $authUiStates.showSignInView) {
+                UserSignInView()
             }
     }
     
     private func getAuthenticatedUser() {
-        showSignInView = !userAuthVM.authenticateUser()
+        authUiStates.showSignInView = !userAuthVM.authenticateUser()
     }
 }
 
@@ -42,4 +41,5 @@ struct RootView: View {
         .environmentObject(UserAuthenticationViewModel())
         .environmentObject(UserSignInViewModel())
         .environmentObject(UserSignUpViewModel())
+        .environmentObject(UserAuthUiStates())
 }

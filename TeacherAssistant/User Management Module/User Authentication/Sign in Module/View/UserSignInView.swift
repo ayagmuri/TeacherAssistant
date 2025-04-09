@@ -15,13 +15,12 @@ struct UserSignInView: View {
     
     @Environment(\.colorScheme) var colorScheme  // Detect dark or light mode
     
-    @State var showSignUpView: Bool = false
+    @EnvironmentObject var authUiStates: UserAuthUiStates
     
     var theme: AppColorScheme {
         colorScheme == .dark ? .dark : .light
     }
     
-    @Binding var showSignInView: Bool
     
     var body: some View {
         NavigationView {
@@ -62,7 +61,7 @@ struct UserSignInView: View {
                         Text("Don't have an account?")
                             .foregroundStyle(theme.primaryText)
                         CustomTextualButton(onButtonTap: {
-                            showSignUpView = true
+                            authUiStates.showSignUpView = true
                         }, title: "Sign up")
                     }
                     .padding()
@@ -71,8 +70,8 @@ struct UserSignInView: View {
                 }
                 .padding(.top, 40)
             }
-            .popover(isPresented: $showSignUpView) {
-                UserSignUpView(showSignInView: showSignInView)
+            .popover(isPresented: $authUiStates.showSignUpView) {
+                UserSignUpView()
             }
         }
         
@@ -93,7 +92,8 @@ struct UserSignInView: View {
 }
 
 #Preview {
-    UserSignInView(showSignInView: .constant(false))
+    UserSignInView()
         .environmentObject(UserSignInViewModel())
         .environmentObject(UserSignUpViewModel())
+        .environmentObject(UserAuthUiStates())
 }

@@ -28,7 +28,7 @@ struct TeacherAssistantApp: App {
     @StateObject private var userAuthVM: UserAuthenticationViewModel = UserAuthenticationViewModel()
     @StateObject private var signInVM: UserSignInViewModel = UserSignInViewModel()
     @StateObject private var signUpVM: UserSignUpViewModel = UserSignUpViewModel()
-    
+    @StateObject var authUiStates: UserAuthUiStates = UserAuthUiStates()
     
     var body: some Scene {
         WindowGroup {
@@ -38,6 +38,7 @@ struct TeacherAssistantApp: App {
             .environmentObject(userAuthVM)
             .environmentObject(signInVM)
             .environmentObject(signUpVM)
+            .environmentObject(authUiStates)
         }
     }
 }

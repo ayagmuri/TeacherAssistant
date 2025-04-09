@@ -17,7 +17,6 @@ protocol UserAuthenticationViewModelProtocol {
 }
 
 class UserAuthenticationViewModel: UserAuthenticationViewModelProtocol, ObservableObject {
-    
 
     func authenticateUser() -> Bool {
         if (try? Authentication.shared.getAuthenticatedUser()) != nil {
@@ -29,7 +28,6 @@ class UserAuthenticationViewModel: UserAuthenticationViewModelProtocol, Observab
     func reAuthenticateUser() -> Bool {
         return false
     }
-    
     
     
 }

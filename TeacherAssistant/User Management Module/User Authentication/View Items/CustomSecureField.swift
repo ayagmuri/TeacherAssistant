@@ -29,7 +29,7 @@ struct CustomSecureField: View {
                 "",
                 text: $text,
                 prompt: Text(prompt)
-                    .foregroundStyle(theme.primaryText)
+                    .foregroundStyle(theme.secondaryText)
             )
             .textInputAutocapitalization(.never)  // Disable text auto-capitalization for password fields
             .foregroundStyle(theme.primaryText)

@@ -17,7 +17,6 @@ protocol UserSignInViewModelProtocol {
     
 }
 
-
 class UserSignInViewModel: UserSignInViewModelProtocol, ObservableObject {
     
     @Published var email: String = ""

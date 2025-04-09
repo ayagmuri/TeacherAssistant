@@ -27,7 +27,7 @@ struct CustomTextField: View {
                 "",
                 text: $text,
                 prompt: Text(prompt)
-                    .foregroundStyle(theme.primaryText)
+                    .foregroundStyle(theme.secondaryText)
             )
             .textInputAutocapitalization(.never)  // Disable auto-capitalization for the text field
             .foregroundStyle(theme.primaryText)
